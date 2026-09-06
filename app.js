@@ -43,3 +43,10 @@ auth.onAuthStateChanged((user) => {
     if (mainApp) mainApp.classList.add('hidden');
   }
 });
+// Pengait tombol login Google
+document.addEventListener('DOMContentLoaded', () => {
+  const btnGoogle = document.getElementById('google-login');
+  if (btnGoogle) {
+    btnGoogle.addEventListener('click', loginWithGoogle);
+  }
+});
