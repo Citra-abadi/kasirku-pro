@@ -89,11 +89,16 @@ button:active:not(:disabled){transform:translateY(1px)}
  <body data-template-id="__page-root" class="w-full">
   <div id="toast" class="toast" role="status" aria-live="polite"></div><!-- Login -->
   <div id="login-screen" class="w-full flex items-center justify-center" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-   <button id="google-login" data-template-id="google-login-button" class="canva-button google-login rounded-xl px-4 py-2.5 font-semibold" type="button" aria-describedby="google-login-status" style="background: rgb(255, 255, 255); color: rgb(30, 41, 59); font-weight: 600;">
-    <svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.27c0-.7-.06-1.39-.18-2.05H12v3.88h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.22Z"></path><path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.6Z"></path><path fill="#FBBC05" d="M6.54 13.68a5.86 5.86 0 0 1 0-3.36V7.79H3.3a9.72 9.72 0 0 0 0 8.42l3.24-2.53Z"></path><path fill="#EA4335" d="M12 6.29c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.38 14.63 2.4 12 2.4a9.74 9.74 0 0 0-8.7 5.39l3.24 2.53C7.31 8.01 9.46 6.29 12 6.29Z"></path>
-    </svg><span class="google-label" data-template-id="google-login-label" style="color: rgb(30, 41, 59); font-weight: 600; font-style: normal; font-size: 14px;">Masuk dengan Google</span></button>
-   <p id="google-login-status" data-template-id="google-login-status" class="canva-text google-status" role="status" aria-live="polite" style="color: rgb(224, 242, 254); font-size: 12px;">Login Google belum dikonfigurasi</p>
-   <div class="login-shell w-full mx-4">
+  <button id="google-login" onclick="loginWithGoogle()" class="google-login rounded-xl px-4 py-2.5 font-semibold" type="button">
+  <svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="#4285F4" d="M21.35 12.27c0-.7-.06-1.39-.18-2.05H12v3.88h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.22Z"></path>
+    <path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.6Z"></path>
+    <path fill="#FBBC05" d="M6.54 13.68a5.86 5.86 0 0 1 0-3.36V7.79H3.3a9.72 9.72 0 0 0 0 8.42l3.24-2.53Z"></path>
+    <path fill="#EA4335" d="M12 6.29c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.38 14.63 2.4 12 2.4a9.74 9.74 0 0 0-8.7 5.39l3.24 2.53C7.31 8.01 9.46 6.29 12 6.29Z"></path>
+  </svg>
+  <span class="google-label">Masuk dengan Google</span>
+</button>
+    <div class="login-shell w-full mx-4">
     <div class="toon-stage" aria-hidden="true">
      <div class="toon">
       <div class="toon-hair"></div>
