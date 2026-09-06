@@ -12,3 +12,34 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+// Provider Google Auth
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+// Fungsi Login dengan Google
+function loginWithGoogle() {
+  auth.signInWithPopup(googleProvider)
+    .then((result) => {
+      showToast('Login berhasil! Selamat datang, ' + result.user.displayName, 'success');
+    })
+    .catch((error) => {
+      console.error(error);
+      showToast('Gagal login: ' + error.message, 'error');
+    });
+}
+
+// Listener Status Autentikasi
+auth.onAuthStateChanged((user) => {
+  const loginScreen = document.getElementById('login-screen');
+  const mainApp = document.getElementById('main-app');
+  
+  if (user) {
+    // Pengguna sudah login -> Tampilkan aplikasi utama
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (mainApp) mainApp.classList.remove('hidden');
+    refreshCurrentPage();
+  } else {
+    // Pengguna belum login -> Tampilkan layar login
+    if (loginScreen) loginScreen.style.display = 'flex';
+    if (mainApp) mainApp.classList.add('hidden');
+  }
+});
