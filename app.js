@@ -23,10 +23,13 @@ function loginWithGoogle() {
     })
     .catch((error) => {
       console.error(error);
+      // Abaikan jika pop-up ditutup pengguna atau diklik ganda
+      if (error.code === 'auth/cancelled-popup-request' || error.code === 'auth/popup-closed-by-user') {
+        return;
+      }
       showToast('Gagal login: ' + error.message, 'error');
     });
 }
-
 // Listener Status Autentikasi
 auth.onAuthStateChanged((user) => {
   const loginScreen = document.getElementById('login-screen');
