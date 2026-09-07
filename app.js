@@ -12,8 +12,19 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+
 // Provider Google Auth
 const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+// Fungsi Toast Notifikasi
+function showToast(message, type = 'info') {
+  alert(message);
+}
+
+// Fungsi Refresh Halaman
+function refreshCurrentPage() {
+  console.log("Halaman berhasil dimuat!");
+}
 
 // Fungsi Login dengan Google
 function loginWithGoogle() {
@@ -23,18 +34,18 @@ function loginWithGoogle() {
     })
     .catch((error) => {
       console.error(error);
-      // Abaikan jika pop-up ditutup pengguna atau diklik ganda
       if (error.code === 'auth/cancelled-popup-request' || error.code === 'auth/popup-closed-by-user') {
         return;
       }
       showToast('Gagal login: ' + error.message, 'error');
     });
 }
+
 // Listener Status Autentikasi
 auth.onAuthStateChanged((user) => {
   const loginScreen = document.getElementById('login-screen');
   const mainApp = document.getElementById('main-app');
-  
+
   if (user) {
     // Pengguna sudah login -> Tampilkan aplikasi utama
     if (loginScreen) loginScreen.style.display = 'none';
@@ -46,6 +57,7 @@ auth.onAuthStateChanged((user) => {
     if (mainApp) mainApp.classList.add('hidden');
   }
 });
+
 // Pengait tombol login Google
 document.addEventListener('DOMContentLoaded', () => {
   const btnGoogle = document.getElementById('google-login');
