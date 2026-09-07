@@ -21,11 +21,6 @@ function showToast(message, type = 'info') {
   alert(message);
 }
 
-// Fungsi Refresh Halaman
-function refreshCurrentPage() {
-  console.log("Halaman berhasil dimuat!");
-}
-
 // Fungsi Login dengan Google
 function loginWithGoogle() {
   auth.signInWithPopup(googleProvider)
@@ -49,19 +44,43 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     // Pengguna sudah login -> Tampilkan aplikasi utama
     if (loginScreen) loginScreen.style.display = 'none';
-    if (mainApp) mainApp.classList.remove('hidden');
-    refreshCurrentPage();
+    if (mainApp) {
+      mainApp.style.display = 'block';
+      mainApp.classList.remove('hidden');
+      
+      // Tampilkan kontainer halaman pertama (pos/dasbor)
+      const pageContainers = mainApp.querySelectorAll('.page-container');
+      pageContainers.forEach((container, index) => {
+        if (index === 0) {
+          container.classList.remove('hidden');
+          container.style.display = 'block';
+        } else {
+          container.classList.add('hidden');
+          container.style.display = 'none';
+        }
+      });
+    }
   } else {
     // Pengguna belum login -> Tampilkan layar login
     if (loginScreen) loginScreen.style.display = 'flex';
-    if (mainApp) mainApp.classList.add('hidden');
+    if (mainApp) {
+      mainApp.style.display = 'none';
+      mainApp.classList.add('hidden');
+    }
   }
 });
 
-// Pengait tombol login Google
+// Pengait tombol login Google & Logout
 document.addEventListener('DOMContentLoaded', () => {
   const btnGoogle = document.getElementById('google-login');
   if (btnGoogle) {
     btnGoogle.addEventListener('click', loginWithGoogle);
+  }
+
+  const btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+      auth.signOut();
+    });
   }
 });
