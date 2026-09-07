@@ -89,7 +89,7 @@ button:active:not(:disabled){transform:translateY(1px)}
  <body data-template-id="__page-root" class="w-full">
   <div id="toast" class="toast" role="status" aria-live="polite"></div><!-- Login -->
   <div id="login-screen" class="w-full flex items-center justify-center" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-  <button id="google-login" onclick="loginWithGoogle()" class="google-login rounded-xl px-4 py-2.5 font-semibold" type="button">
+ <button id="google-login" class="google-login rounded-xl px-4 py-2.5 font-semibold" type="button"> 
   <svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true">
     <path fill="#4285F4" d="M21.35 12.27c0-.7-.06-1.39-.18-2.05H12v3.88h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.22Z"></path>
     <path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.6Z"></path>
@@ -990,7 +990,7 @@ document.getElementById('pos-customer').addEventListener('input',()=>{document.g
 function renderCategories(){
   const cats=getCategories();
   document.getElementById('btn-add-category').classList.toggle('hidden',!isAdmin());
-  document.getElementById('category-list').innerHTML=cats.length?cats.map(c=>`<div class="bg-white rounded-xl p-4 shadow-sm border flex items-center justify-between"><span class="font-medium text-slate-700">${c.name}</span>${isAdmin()?`<div class="flex gap-1"><button onclick="editCat('${c.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">Edit</button><button onclick="deleteItem('${c.__backendId}','Kategori: ${c.name}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs font-medium">Hapus</button></div>`:''}</div>`).join(''):'<p class="text-slate-400 italic">Belum ada kategori</p>';
+  document.getElementById('category-list').innerHTML=cats.length?cats.map(c=>`<div class="bg-white rounded-xl p-4 shadow-sm border flex items-center justify-between"><span class="font-medium text-slate-700">${c.name}</span>${isAdmin()?`<div class="flex gap-1"><button onclick="editCat('${c.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">Edit</button><button ="deleteItem('${c.__backendId}','Kategori: ${c.name}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs font-medium">Hapus</button></div>`:''}</div>`).join(''):'<p class="text-slate-400 italic">Belum ada kategori</p>';
 }
 let categoryModalTrigger=null;
 const categoryModal=document.getElementById('category-modal');
@@ -1066,7 +1066,7 @@ function renderProducts(){
   if(q)prods=prods.filter(p=>p.name.toLowerCase().includes(q)||(p.barcode||'').toLowerCase().includes(q));
   if(catF)prods=prods.filter(p=>p.category===catF);
   const wrap=document.getElementById('product-table-wrap');
-  const actions=p=>isAdmin()?`<button onclick="editProd('${p.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs mr-1">Edit</button><button onclick="deleteItem('${p.__backendId}','${p.name}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">Hapus</button>`:'-';
+  const actions=p=>isAdmin()?`<button ="editProd('${p.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs mr-1">Edit</button><button ="deleteItem('${p.__backendId}','${p.name}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">Hapus</button>`:'-';
   const image=p=>`<img src="${p.image_data||''}" alt="${p.name}" class="prod-thumb ${p.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')">`;
   const gridImage=p=>`<div class="w-full aspect-[4/3] max-h-28 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden"><img src="${p.image_data||''}" alt="${p.name}" class="w-full h-full object-contain p-1 ${p.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')"></div>`;
   if(productLayout==='table'){
@@ -1197,7 +1197,7 @@ function filterPOS(){
   if(cat)prods=prods.filter(p=>p.category===cat);
   // barcode exact match auto-add
   const exact=findProductByQuery(q);if(q&&exact&&Number(exact.stock)>0&&exact.active!=='0'){addToCart(exact.__backendId);document.getElementById('pos-search').value='';prods=prods.filter(p=>p.__backendId!==exact.__backendId)}
-  document.getElementById('pos-products').innerHTML=prods.map(p=>`<button onclick="addToCart('${p.__backendId}')" class="bg-white rounded-xl border hover:border-blue-400 hover:shadow-md text-left transition-all overflow-hidden p-0"><div class="pos-thumb flex items-center justify-center bg-slate-50"><img src="${p.image_data||''}" alt="${p.name}" class="w-full h-full object-contain ${p.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')"></div><div class="p-3"><p class="font-semibold text-sm truncate">${p.name}</p><p class="text-base font-bold text-blue-600 mt-1">${fmt(p.price)}</p><p class="text-xs text-slate-400">Stok: ${p.stock}</p></div></button>`).join('')||'<p class="text-slate-400 italic col-span-4 text-center py-8">Tidak ada produk</p>';
+  document.getElementById('pos-products').innerHTML=prods.map(p=>`<button ="addToCart('${p.__backendId}')" class="bg-white rounded-xl border hover:border-blue-400 hover:shadow-md text-left transition-all overflow-hidden p-0"><div class="pos-thumb flex items-center justify-center bg-slate-50"><img src="${p.image_data||''}" alt="${p.name}" class="w-full h-full object-contain ${p.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')"></div><div class="p-3"><p class="font-semibold text-sm truncate">${p.name}</p><p class="text-base font-bold text-blue-600 mt-1">${fmt(p.price)}</p><p class="text-xs text-slate-400">Stok: ${p.stock}</p></div></button>`).join('')||'<p class="text-slate-400 italic col-span-4 text-center py-8">Tidak ada produk</p>';
   lucide.createIcons();
 }
 document.getElementById('pos-search').addEventListener('input',filterPOS);
@@ -1301,7 +1301,7 @@ function renderCart(){
     if(prod?.discount_type&&prod?.discount_value)opts+=`<option value="diskon" ${c.priceType==='diskon'?'selected':''}>Diskon</option>`;
     if(prod?.wholesale_pcs_price)opts+=`<option value="grosir_pcs" ${c.priceType==='grosir_pcs'?'selected':''}>Grosir Pcs</option>`;
     if(prod?.wholesale_box_price)opts+=`<option value="grosir_kardus" ${c.priceType==='grosir_kardus'?'selected':''}>Grosir Kardus</option>`;
-    return`<div class="bg-slate-50 rounded-lg p-2"><div class="flex items-center gap-2"><img src="${prod?.image_data||''}" alt="${c.name}" class="w-10 h-10 rounded object-cover bg-white border ${prod?.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')"><div class="flex-1 min-w-0"><p class="text-sm font-medium truncate">${c.name}</p><p class="text-xs text-slate-500">${fmt(up)} × ${c.qty}</p><select onchange="changePriceType('${c.id}',this.value)" class="mt-1 text-[11px] border rounded px-1 py-0.5">${opts}</select></div><div class="flex items-center gap-1"><button onclick="updateCartQty('${c.id}',-1)" class="w-6 h-6 bg-slate-200 rounded text-sm flex items-center justify-center">-</button><span class="text-sm w-6 text-center">${c.qty}</span><button onclick="updateCartQty('${c.id}',1)" class="w-6 h-6 bg-slate-200 rounded text-sm flex items-center justify-center">+</button><button onclick="removeFromCart('${c.id}')" class="ml-1 text-red-400 hover:text-red-600 text-lg">×</button></div></div><p class="text-right text-xs font-semibold text-slate-700 mt-1">${fmt(sub)}</p></div>`
+    return`<div class="bg-slate-50 rounded-lg p-2"><div class="flex items-center gap-2"><img src="${prod?.image_data||''}" alt="${c.name}" class="w-10 h-10 rounded object-cover bg-white border ${prod?.image_data?'':'image-fallback'}" onerror="this.removeAttribute('src');this.classList.add('image-fallback')"><div class="flex-1 min-w-0"><p class="text-sm font-medium truncate">${c.name}</p><p class="text-xs text-slate-500">${fmt(up)} × ${c.qty}</p><select onchange="changePriceType('${c.id}',this.value)" class="mt-1 text-[11px] border rounded px-1 py-0.5">${opts}</select></div><div class="flex items-center gap-1"><button ="updateCartQty('${c.id}',-1)" class="w-6 h-6 bg-slate-200 rounded text-sm flex items-center justify-center">-</button><span class="text-sm w-6 text-center">${c.qty}</span><button ="updateCartQty('${c.id}',1)" class="w-6 h-6 bg-slate-200 rounded text-sm flex items-center justify-center">+</button><button ="removeFromCart('${c.id}')" class="ml-1 text-red-400 hover:text-red-600 text-lg">×</button></div></div><p class="text-right text-xs font-semibold text-slate-700 mt-1">${fmt(sub)}</p></div>`
   }).join(''):'<p class="text-slate-400 text-sm italic text-center py-4">Keranjang kosong</p>';
   document.getElementById('cart-total').textContent=fmt(cartTotal());
   document.getElementById('btn-checkout').disabled=cart.length===0;
@@ -1817,7 +1817,7 @@ function setupBulkDelete(type, selector, actionsId, selectedId, allId, renderFn)
     document.getElementById('delete-msg').textContent=label;
     document.getElementById('delete-modal').classList.add('show');
   };
-  selectedBtn.onclick=()=>requestRemove([...document.querySelectorAll(selector+':checked')].map(x=>x.dataset.id),'Data yang dipilih akan dihapus.');
+  selectedBtn.=()=>requestRemove([...document.querySelectorAll(selector+':checked')].map(x=>x.dataset.id),'Data yang dipilih akan dihapus.');
   if(selectAll&&!selectAll.dataset.bound){selectAll.dataset.bound='true';selectAll.addEventListener('change',()=>{document.querySelectorAll(selector).forEach(box=>{box.checked=selectAll.checked});syncSelectedState()})}
   allBtn.onclick=()=>{
     const ids=type==='transaction'
@@ -2015,7 +2015,7 @@ bindDateFilter('finance-period','finance-custom-range','finance-from','finance-t
 // ============ AKUN ============
 function renderAccounts(){
   const accts=getAccounts();
-  document.getElementById('account-table').innerHTML=accts.length?accts.map(a=>`<tr class="border-b"><td class="p-3 font-medium">${a.username}</td><td class="p-3"><span class="px-2 py-0.5 rounded text-xs ${a.role==='admin'?'bg-blue-100 text-blue-700':'bg-emerald-100 text-emerald-700'}">${a.role}</span></td><td class="p-3 text-center"><button onclick="editAcct('${a.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs mr-1">Edit</button><button onclick="deleteItem('${a.__backendId}','Akun: ${a.username}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">Hapus</button></td></tr>`).join(''):'<tr><td colspan="3" class="p-6 text-center text-slate-400">Belum ada akun</td></tr>';
+  document.getElementById('account-table').innerHTML=accts.length?accts.map(a=>`<tr class="border-b"><td class="p-3 font-medium">${a.username}</td><td class="p-3"><span class="px-2 py-0.5 rounded text-xs ${a.role==='admin'?'bg-blue-100 text-blue-700':'bg-emerald-100 text-emerald-700'}">${a.role}</span></td><td class="p-3 text-center"><button ="editAcct('${a.__backendId}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs mr-1">Edit</button><button ="deleteItem('${a.__backendId}','Akun: ${a.username}')" class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">Hapus</button></td></tr>`).join(''):'<tr><td colspan="3" class="p-6 text-center text-slate-400">Belum ada akun</td></tr>';
 }
 document.getElementById('btn-add-account').addEventListener('click',()=>{editingAccount=null;document.getElementById('acct-username').value='';document.getElementById('acct-pin').value='';document.getElementById('acct-role').value='kasir';document.getElementById('acct-modal-title').textContent='Tambah Akun';document.getElementById('account-modal').classList.add('show')});
 document.getElementById('acct-cancel').addEventListener('click',()=>document.getElementById('account-modal').classList.remove('show'));
